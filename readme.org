@@ -1,5 +1,8 @@
 这个分支用来保存iTerm2的相关配置。
 
+用法：
+打开iTerm2 的preference, 然后在 General tab 下选择，
+Load preferences from a custom folder or URL.
 
 
 

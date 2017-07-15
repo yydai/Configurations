@@ -1,3 +1,5 @@
-这个项目用来保存iTerm2, Keyboard maestro, Vim的相关配置。
+这个分支用来保存Vim的相关配置。
+
+
 
 

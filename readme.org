@@ -1,4 +1,4 @@
-这个项目用来保存iTerm2, Keyboard maestro, Vim的相关配置。
+这个项目用来保存iTerm2, Keyboard maestro, Vim, Zsh的相关配置。
 
 不同的配置在不同的分支中，切换分支就可以看到。
 

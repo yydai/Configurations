@@ -84,10 +84,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# ================================
-# ==========My Own COnfig=========
-# ================================
 alias antlr4='java -jar /usr/local/lib/antlr-4.7-complete.jar'
 alias ap2='antlr4 -Dlanguage=Python2'
 alias grun='java org.antlr.v4.gui.TestRig'
@@ -113,8 +109,6 @@ alias l='ls'
 
 auto_push() {
     git add .
-    local branch=$1
-    shift
     local desc="$1"
     if [ -z "$1" ]; then
         desc="Auto commit"
@@ -138,10 +132,10 @@ read_config() {
     esac
 
     if [ -z "$1" ]; then
-        auto_push $branch
+        auto_push 
     elif ! cat $CONFIG | grep "$1" > /dev/null; then
 	echo "====Pushing in current directory===="
-        auto_push -b $branch $1
+        auto_push $1
     else
         local temp=${1}_path
 	temp=${(P)temp}

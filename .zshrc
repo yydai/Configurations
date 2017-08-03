@@ -84,6 +84,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# ================================
+# ==========My Own COnfig=========
+# ================================
 alias antlr4='java -jar /usr/local/lib/antlr-4.7-complete.jar'
 alias ap2='antlr4 -Dlanguage=Python2'
 alias grun='java org.antlr.v4.gui.TestRig'

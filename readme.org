@@ -1,3 +1,26 @@
 这个分支保存 zsh 的配置
 
+1. 添加 help command:
 
+#+ATTR_HTML: :width 80%
+[[file:./imgs/20170812_140512_20769uab.png]]
+
+如 git 的快捷命令：
+
+#+ATTR_HTML: :width 80%
+[[file:./imgs/20170812_140429_20769hQV.png]]
+
+
+
+2. 搜索历史命令
+
+添加到 .zshrc
+#+BEGIN_SRC shell
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X' history-beginning-search-menu
+#+END_SRC
+
+例如，输入 cp ~ 然后按下 C-x。
+#+ATTR_HTML: :width 80%
+[[file:./imgs/20170812_140952_207697kh.png]]

@@ -106,6 +106,8 @@ alias v='vim'
 alias e='emacs -q'
 alias zshrc='vim ~/.zshrc && source $_'
 alias l='ls'
+alias l.='ls -a'
+
 
 auto_push() {
     git add .
@@ -167,6 +169,7 @@ bindkey '^X' history-beginning-search-menu
 
 
 fp() {
+    txtund=$(tput sgr 0 1)    # Underline
     txtbld=$(tput bold)       # Bold
     txtred=$(tput setaf 1)    # Red
     txtrst=$(tput sgr0)
@@ -199,21 +202,77 @@ gh() {
     fp "g" "git"
 }
 
+linux-tool() {
+    fpcount=0
+    printf "${txtpur}%02s${txtrst}: ${txtcyn}%-10s ${txtgrn}%s${txtrst}\n" "NU" "COMMAND" "DESCRIPTION"
+    printf "-----------------------------------\n"  
+    fp "mc" "mkdir a dir and cd to it"
+    fp "zshrc" "open ~/.zshrc with vim and source it"
+    fp "zsh_stats" "Get a list of the top 20 commands"
+    fp "/ or ~" "cd / or cd ~"
+    fp ".. or ..." "equal to cd .. or cd ../.."
+    fp "md" "mkdir -p"
+    fp "rd" "rmdir"
+    fp "d" "dirs -v (list last used directories)"
+    fp "l." "ls -d .* (list hidden files)"
+    fp "h" "history"
+    fp "psmem" "ps auxf | sort -nr -k 4 (get top process eating memory only linux)"
+}
+
+python-tool() {
+    fpcount=0
+    printf "${txtpur}%02s${txtrst}: ${txtcyn}%-10s ${txtgrn}%s${txtrst}\n" "NU" "COMMAND" "DESCRIPTION"
+    printf "-----------------------------------\n"
+    fp "penv" "create python virtual enviroment"
+    fp "rmpenv" "delete the python virtual enviroment"
+    fp "pa" "active the python virtual enviroment"
+    fp "pd" "deactive the python virtual enviroment"
+}
 
 h() {
     option="${1}"
     case ${option} in
-	g) echo "git alias help:"
+	g) echo "Git Alias:"
 	   gh
 	   ;;
-	l) echo "Linux alias tool:"
-	   echo "under dev..."
+	l) echo "Linux Alias:"
+	   linux-tool
+	   ;;
+ 	p) echo "Python Alias:"
+	   python-tool
 	   ;;
  	*) fpcount=0
-	   fp "[g]" "--show git help"
-	   fp "[l]" "--show linux toos help"
+	   fp "[g]" "show ${txtund}git${txtrst} tools help"
+	   fp "[l]" "show ${txtund}linux${txtrst} tools help"
+	   fp "[p]" "show ${txtund}python${txtrst} tools help"
 	   ;;
     esac
 }
 
+penv() {
+    if [ -z $1 ]; then
+        echo "`basename ${0}`:usage: [-p version] virtual_name"
+ 	echo "Example: penv -p 3 hello"
+	echo "Default python version is 2.7"
+        return 1
+    fi
+
+    option=$1
+    case $option in
+	-p) pv=$2
+ 	    shift 2
+	    ;;
+	*)  pv="2.7"
+	    ;;
+    esac
+
+    pversion=python${pv}
+    echo $pversion
+    virtualenv -p $pversion $1
+    pushd $1
+    source bin/activate
+}
+alias pd='deactivate&&cd ..'
+alias pa='source bin/activate'
+alias rmpenv='rm -rf'
 

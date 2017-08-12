@@ -1,6 +1,6 @@
 这个分支保存 zsh 的配置
 
-1. 添加 help command:
+* 添加 help command:
 
 #+ATTR_HTML: :width 80%
 [[file:./imgs/20170812_140512_20769uab.png]]
@@ -12,7 +12,7 @@
 
 
 
-2. 搜索历史命令
+* 搜索历史命令
 
 添加到 .zshrc
 #+BEGIN_SRC shell

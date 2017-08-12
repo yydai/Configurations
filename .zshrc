@@ -51,7 +51,7 @@ ZSH_THEME="ys"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump zsh-completions osx brew emacs sudo solarized-man)
+plugins=(git autojump zsh-completions osx brew emacs sudo solarized-man zsh-autosuggestions)
 autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
@@ -141,7 +141,7 @@ read_config() {
 	temp=${(P)temp}
 	echo "====Pushing in $temp===="
         pushd $temp> /dev/null # we use pushd instead of cd
-	auto_push $branch $2
+	auto_push $2
 	popd > /dev/null
     fi
 }
@@ -157,3 +157,52 @@ mc() {
 }
 
 alias xx='od -Ax -tcx1'
+
+alias py3='python3'
+alias py='python'
+
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X' history-beginning-search-menu
+
+
+fp() {
+    if [ -z $fpcount ]; then
+        fpcount=0
+    fi
+    printf "%02d: %-10s %s\n" ((fpcount=fpcount+1)) $1 $2
+}
+
+gh() {
+    fpcount=0
+    fp "glol" "git log pretty"
+    fp "gcmsg" "git commit -m"
+    fp "gst" "git status"
+    fp "ggpull" "git pull origin git_current_branch"
+    fp "ggpush" "git push origin git_current_branch"
+    fp "gaa" "git add --all"
+    fp "gco" "git checkout"
+    fp "ga" "git add"
+    fp "gb" "git branch"
+    fp "gd" "git diff"
+    fp "g" "git"
+}
+
+
+h() {
+    option="${1}"
+    case ${option} in
+	g) echo "git alias help:"
+	   gh
+	   ;;
+	l) echo "Linux alias tool:"
+	   echo "under dev..."
+	   ;;
+ 	*) fpcount=0
+	   fp "[g]" "--show git help"
+	   fp "[l]" "--show linux toos help"
+	   ;;
+    esac
+}
+
+

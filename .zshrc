@@ -167,14 +167,25 @@ bindkey '^X' history-beginning-search-menu
 
 
 fp() {
+    txtbld=$(tput bold)       # Bold
+    txtred=$(tput setaf 1)    # Red
+    txtrst=$(tput sgr0)
+    txtgrn=$(tput setaf 2)    # Green
+    txtylw=$(tput setaf 3)    # Yellow
+    txtblu=$(tput setaf 4)    # Blue
+    txtpur=$(tput setaf 5)    # Purple
+    txtcyn=$(tput setaf 6)    # Cyan
+    txtwht=$(tput setaf 7)    # White
     if [ -z $fpcount ]; then
         fpcount=0
     fi
-    printf "%02d: %-10s %s\n" ((fpcount=fpcount+1)) $1 $2
+    printf "${txtpur}%02d${txtrst}: ${txtcyn}%-10s ${txtgrn}--%s${txtrst}\n" ((fpcount=fpcount+1)) $1 $2
 }
 
 gh() {
     fpcount=0
+    printf "${txtpur}%02s${txtrst}: ${txtcyn}%-10s ${txtgrn}%s${txtrst}\n" "NU" "COMMAND" "DESCRIPTION"
+    printf "-----------------------------------\n"
     fp "glol" "git log pretty"
     fp "gcmsg" "git commit -m"
     fp "gst" "git status"

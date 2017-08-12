@@ -28,3 +28,7 @@ bindkey '^X' history-beginning-search-menu
 例如，输入 cp ~ 然后按下 C-x。
 #+ATTR_HTML: :width 80%
 [[file:./imgs/20170812_140952_207697kh.png]]
+
+有时候这种方式不管用，我们可以使用
+
+Control-r 来搜索历史记录

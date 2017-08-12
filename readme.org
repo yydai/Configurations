@@ -1,5 +1,9 @@
 这个分支保存 zsh 的配置
 
+* Auto Sync and Push
+
+run =zsh sync.sh=
+
 * 添加 help command:
 
 #+ATTR_HTML: :width 80%

@@ -1,3 +1,3 @@
 cp ~/.zshrc .
-source ~/.zshrc || true
+! source ~/.zshrc
 p

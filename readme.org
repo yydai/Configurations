@@ -1,4 +1,4 @@
-#+ATTR_HTML: :width 80%
+#+ATTR_HTML: :width 30%
 [[./imgs/VSymbol1.png]]
 
 这个项目用来保存 iTerm2, Keyboard maestro, Vim, Zsh 的相关配置。

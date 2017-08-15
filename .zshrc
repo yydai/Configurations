@@ -107,7 +107,7 @@ alias e='emacs -q'
 alias zshrc='vim ~/.zshrc && source $_'
 alias l='ls'
 alias l.='ls -a'
-
+alias ds='du -h'
 
 auto_push() {
     git add .
@@ -205,7 +205,8 @@ gh() {
 linux-tool() {
     fpcount=0
     printf "${txtpur}%02s${txtrst}: ${txtcyn}%-10s ${txtgrn}%s${txtrst}\n" "NU" "COMMAND" "DESCRIPTION"
-    printf "-----------------------------------\n"  
+    printf "-----------------------------------\n"
+    fp "du -h --max-depth=1 <dir>" "文件或文件夹的磁盘使用空间,linux 下可用"
     fp "mc" "mkdir a dir and cd to it"
     fp "zshrc" "open ~/.zshrc with vim and source it"
     fp "zsh_stats" "Get a list of the top 20 commands"
@@ -229,6 +230,14 @@ python-tool() {
     fp "pd" "deactive the python virtual enviroment"
 }
 
+mac-tool() {
+    fpcount=0
+    printf "${txtpur}%02s${txtrst}: ${txtcyn}%-10s ${txtgrn}%s${txtrst}\n" "NU" "COMMAND" "DESCRIPTION"
+    printf "-----------------------------------\n"
+    fp "movtogif" "convert mov to gif file"
+    fp "ds" "show a file size"
+}
+
 h() {
     option="${1}"
     case ${option} in
@@ -241,10 +250,14 @@ h() {
  	p) echo "Python Alias:"
 	   python-tool
 	   ;;
+	m) echo "Mac Alias:"
+	   mac-tool
+	   ;;
  	*) fpcount=0
-	   fp "[g]" "show ${txtund}git${txtrst} tools help"
-	   fp "[l]" "show ${txtund}linux${txtrst} tools help"
-	   fp "[p]" "show ${txtund}python${txtrst} tools help"
+	   fp "[g]" "show ${txtwht}git${txtgrn} tools help"
+	   fp "[l]" "show ${txtwht}linux${txtgrn} tools help"
+	   fp "[p]" "show ${txtwht}python${txtgrn} tools help"
+   	   fp "[m]" "show ${txtwht}mac${txtgrn} tools help"
 	   ;;
     esac
 }
@@ -275,4 +288,25 @@ penv() {
 alias pd='deactivate&&cd ..'
 alias pa='source bin/activate'
 alias rmpenv='rm -rf'
+
+# https://gist.github.com/dergachev/4627207
+# https://stackoverflow.com/questions/8578926/how-can-i-compress-the-size-of-gif-images-with-imagemagick
+movtogif() {
+    if [ -z "$1" ]; then
+	echo "Usage: movtogif <src> <des>"
+	echo "       movtogif <src>"
+	echo "Example: movtogif in out ${txtcyn}# in is in.mov and out is out.gif${txtrst}"
+	echo "         movtogif in ${txtcyn}# will output random gif filename${txtrst}"
+	return 1
+    fi
+
+    local filename=$2
+    # generate random filename
+    if [ -z "$2" ]; then
+      	filename=`hexdump -e '/1 "%02x"' -n16 < /dev/urandom`
+    fi
+
+    ffmpeg -i ${1}.mov -vf scale=800:-1 -r 10 -f image2pipe -vcodec ppm - | \
+    convert -delay 5 -fuzz 2% -layers Optimize -loop 0 - ${filename}.gif
+}
 

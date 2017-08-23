@@ -1,6 +1,32 @@
-#+ATTR_HTML: :width 30%
-[[./imgs/VSymbol1.png]]
+* aria2c config
 
-这个项目用来保存 iTerm2, Keyboard maestro, Vim, Zsh 的相关配置。
+1. brew install aria2c && download Aria2GUI
 
-不同的配置在不同的分支中，切换分支就可以看到。
+2. config file
+	~/aria2c.config
+
+3. 配置
+   #+BEGIN_SRC python
+   aria () {
+	    local option=$1
+	    case $option in
+		-s) aria2c --conf-path="/Users/yingdai/aria2.conf" -D
+		    open -a Aria2GUI
+		    ;;
+		-k) killall -2 aria2c
+		    killall Aria2GUI
+		    ;;
+		*)  echo "aria -s : start service"
+		    echo "aria -k : kill service"
+	    esac
+   }
+   #+END_SRC
+
+4. Chrome 插件安装
+   https://github.com/acgotaku/BaiduExporter
+
+* Usage
+	aria -s
+	aria -k
+
+	打开百度网盘。选择导出下载 aria rpc 下载
